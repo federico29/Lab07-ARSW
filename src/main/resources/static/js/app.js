@@ -8,13 +8,23 @@ app = (function () {
     }
 
     function getBlueprintsByNameAndAuthor(author, bpName){
-        $("#current").text(bpName)
+        addCanvas();
+        $("#current").text(bpName);
         return api.getBlueprintsByNameAndAuthor(author, bpName, pintar);
     }
 
     function run() {
         var nameAutor = $('#autor').val();
         generarTable(nameAutor,api.getBlueprintsByAuthor(nameAutor,getByAuthor));
+    }
+
+    function addCanvas() {
+        $("#canvasContainer").empty();
+        $('#canvasContainer')
+        .append(
+            "<label for='myCanvas'>Current Blueprint: <b id='current'></b></label><canvas id='myCanvas' width='500px' height='300px' style='border:1px solid #000000;'></canvas>"
+        );
+        console.log();
     }
 
     function pintar(funcion) {
@@ -28,7 +38,7 @@ app = (function () {
             ctx.lineTo(f.x,f.y);
             ctx.stroke();
         })
-        ctx.closePath()
+        ctx.closePath();
     }
 
     function generarTable(name,funcion) {
