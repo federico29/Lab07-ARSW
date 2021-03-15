@@ -1,5 +1,5 @@
 //la constante api se puede cambiar entre apimock y apiclient
-const api=apiclient
+const api=apimock
 app = (function () {
     function getByAuthor(funcion) {
         return funcion.map(function(f){
@@ -8,6 +8,7 @@ app = (function () {
     }
 
     function getBlueprintsByNameAndAuthor(author, bpName){
+        $("#canvasContainer").empty();
         addCanvas();
         $("#current").text(bpName);
         return api.getBlueprintsByNameAndAuthor(author, bpName, pintar);
@@ -19,12 +20,10 @@ app = (function () {
     }
 
     function addCanvas() {
-        $("#canvasContainer").empty();
         $('#canvasContainer')
         .append(
             "<label for='myCanvas'>Current Blueprint: <b id='current'></b></label><canvas id='myCanvas' width='500px' height='300px' style='border:1px solid #000000;'></canvas>"
         );
-        console.log();
     }
 
     function pintar(funcion) {
@@ -32,13 +31,26 @@ app = (function () {
         var ctx = c.getContext("2d");
         ctx.beginPath();
         ctx.clearRect(0, 0, c.width, c.height);
-        console.log(c.width, c.height)
         funcion.points.map(function(f){
-            console.log(f.x)
             ctx.lineTo(f.x,f.y);
             ctx.stroke();
         })
         ctx.closePath();
+
+        api.prueba();
+
+        var xPos = $("#myCanvas").offset().left + window.screenX;
+        var yPos = $("#myCanvas").offset().top + window.screenY;
+
+        if(window.PointerEvent) {
+          c.addEventListener("pointerdown", function(event){
+            alert('pointerdown at ' + (event.pageX - xPos) + ',' + (event.pageY - yPos));
+          });
+        }else {
+            c.addEventListener("mousedown", function(event){
+            alert('mousedown at ' + (event.clientX - xPos) + ',' + (event.clientY - yPos));
+          });
+        }
     }
 
     function generarTable(name,funcion) {
