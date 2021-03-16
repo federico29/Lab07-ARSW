@@ -84,5 +84,17 @@ public class BlueprintAPIController {
             return new ResponseEntity<>(ex.getMessage(),HttpStatus.FORBIDDEN);
         }
     }
+    @RequestMapping(value= "/{name}", method = RequestMethod.DELETE)
+    public ResponseEntity<?> deleteBlueprint(@PathVariable("name") String name, @RequestBody Blueprint cf) throws ResourceNotFoundException{
+        try {
+            bps.delete(cf);
+            return new ResponseEntity<>(HttpStatus.ACCEPTED);
+        } catch ( BlueprintPersistenceException e) {
+            Logger.getLogger(RestController.class.getName()).log(Level.SEVERE, null, e);
+            if ( e.getMessage().equals("No exists this function") || e.getMessage().equals("No exists a cinema with name: "+name)) {
+                throw new ResourceNotFoundException(e.getMessage());
+            } return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
 }
 

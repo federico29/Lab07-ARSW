@@ -21,7 +21,7 @@ apiclient = (function () {
 
             const promise = new Promise((resolve, reject) => {
                 $.ajax({
-                    url: "http://localhost:8080/blueprints/" + name,
+                    url: Url + name,
                     type: 'PUT',
                     data: blueprintsFunction,
                     contentType: "application/json"
@@ -44,7 +44,7 @@ apiclient = (function () {
             var blueprintsFunction = JSON.stringify(f);
             const promise = new Promise((resolve, reject) => {
                 $.ajax({
-                    url: "http://localhost:8080/blueprints/" + name,
+                    url: Url + name,
                     type: 'PUT',
                     data: blueprintsFunction,
                     contentType: "application/json"
@@ -62,10 +62,10 @@ apiclient = (function () {
 
         deleteFunction: function (name, f, callback) {
             var blueprintsFunction = JSON.stringify(f);
-            console.log(cinemaFunction);
+            console.log(blueprintsFunction);
             const promise = new Promise((resolve, reject) => {
                 $.ajax({
-                    url: "http://localhost:8080/blueprints/" + name,
+                    url: Url+ name,
                     type: 'DELETE',
                     data: blueprintsFunction,
                     contentType: "application/json"

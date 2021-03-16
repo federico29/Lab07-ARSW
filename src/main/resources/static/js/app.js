@@ -1,5 +1,5 @@
 //la constante api se puede cambiar entre apimock y apiclient
-const api=apimock
+const api=apiclient
 app = (function () {
     function getByAuthor(funcion) {
         return funcion.map(function(f){
