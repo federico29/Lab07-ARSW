@@ -22,7 +22,7 @@ app = (function () {
     function addCanvas() {
         $('#canvasContainer')
         .append(
-            "<label for='myCanvas'>Current Blueprint: <b id='current'></b></label><canvas id='myCanvas' width='500px' height='300px' style='border:1px solid #000000;'></canvas>"
+            "<label for='myCanvas'>Current Blueprint: <b id='current'></b></label><canvas id='myCanvas' width='500px' height='300px' style='border:1px solid #000000;'></canvas>&nbsp;&nbsp;<button id=\"delete\" onclick=\"app.delete()\">delete</button>&nbsp;&nbsp;<button id=\"update\" onclick=\"app.update()\">Update/save</button>&nbsp;&nbsp;<button id=\"create\" onclick=\"app.create()\">Create New Blueprint</button>"
         );
     }
 
