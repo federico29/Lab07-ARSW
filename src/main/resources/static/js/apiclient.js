@@ -1,52 +1,44 @@
 const Url = 'http://localhost:8080/blueprints/';
 apiclient = (function () {
-    var f=[]
+
     return {
         getBlueprintsByAuthor: function (author, callback) {
             $.get(Url + author, function (data) {
-                f = data;
+                callback(data);
             });
-            return callback(f)
         },
 
         getBlueprintsByNameAndAuthor: function (author, name, callback) {
             $.get(Url + author + "/" + name, function (data) {
-                f = data;
+                callback(data);
             });
-            return callback(f)
         },
-        putFunction: function (name, new_function, callback) {
-
-            var blueprintsFunction = JSON.stringify(new_function);
-
+        
+        putFunction: function (blueprint, callback) {
             const promise = new Promise((resolve, reject) => {
                 $.ajax({
-                    url: Url + name,
+                    url: Url + blueprint.author + "/" + blueprint.name,
                     type: 'PUT',
-                    data: blueprintsFunction,
-                    contentType: "application/json"
+                    data: JSON.stringify(blueprint),
+                    contentType: "application/json",
                 }).done(function () {
                     resolve('SUCCESS');
-
                 }).fail(function (msg) {
                     reject('FAIL');
                 });
             });
-
             promise
                 .then(res => {
-                    callback();
+                    callback(blueprint);
                 });
-
         },
 
-        postFunction: function (name, f, callback) {
-            var blueprintsFunction = JSON.stringify(f);
+        postFunction: function (blueprint, callback) {
             const promise = new Promise((resolve, reject) => {
                 $.ajax({
-                    url: Url + name,
-                    type: 'PUT',
-                    data: blueprintsFunction,
+                    url: Url,
+                    type: 'POST',
+                    data: JSON.stringify(blueprint),
                     contentType: "application/json"
                 }).done(function () {
                     resolve('SUCCESS');
@@ -56,18 +48,16 @@ apiclient = (function () {
             });
             promise
                 .then(res => {
-                    callback();
+                    callback(blueprint);
                 });
         },
 
-        deleteFunction: function (name, f, callback) {
-            var blueprintsFunction = JSON.stringify(f);
-            console.log(blueprintsFunction);
+        deleteFunction: function(blueprint, callback){
             const promise = new Promise((resolve, reject) => {
                 $.ajax({
-                    url: Url+ name,
+                    url: Url + blueprint.name ,
                     type: 'DELETE',
-                    data: blueprintsFunction,
+                    data: JSON.stringify(blueprint),
                     contentType: "application/json"
                 }).done(function () {
                     resolve('SUCCESS');
@@ -77,8 +67,8 @@ apiclient = (function () {
             });
             promise
                 .then(res => {
-                    callback();
+                    callback(blueprint);
                 });
-        }
+         }
     }
 })();

@@ -41,13 +41,12 @@ apimock=(function(){
          );
      }
 
-    function prueba(){
-        console.log(mockdata["Federico"][1].points.push({"x": 23, "y":12}));
-    }
+//    function prueba(){
+//        console.log(mockdata["Federico"][1].points.push({"x": 23, "y":12}));
+//    }
 
     return {
         getBlueprintsByAuthor: getBlueprintsByAuthor,
-        getBlueprintsByNameAndAuthor: getBlueprintsByNameAndAuthor,
-        prueba:prueba
+        getBlueprintsByNameAndAuthor: getBlueprintsByNameAndAuthor
     };
 })();
